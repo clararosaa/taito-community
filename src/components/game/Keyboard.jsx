@@ -25,15 +25,16 @@ export function keyStates(guesses) {
 export default function Keyboard({ guesses, disabled, onKey }) {
   const states = keyStates(guesses)
 
-  const key = (ch, flex, style, label) => (
+  /* `code` menee pelilogiikalle, `text` näkyy napissa. */
+  const key = (code, flex, style, { text, label } = {}) => (
     <button
-      key={ch}
+      key={code}
       style={{ ...S.key, flex, ...style, opacity: disabled ? 0.55 : 1 }}
       disabled={disabled}
-      onClick={() => onKey(ch)}
-      aria-label={label ?? ch}
+      onClick={() => onKey(code)}
+      aria-label={label}
     >
-      {ch}
+      {text ?? code}
     </button>
   )
 
@@ -45,9 +46,12 @@ export default function Keyboard({ guesses, disabled, onKey }) {
         </div>
       ))}
       <div style={S.row}>
-        {key('⌫', 1.6, { background: '#DDD5C8', color: 'var(--text)' }, 'Poista kirjain')}
+        {key('⌫', 1, { background: '#DDD5C8', color: 'var(--text)' }, { label: 'Poista kirjain' })}
         {ROWS[2].split('').map(ch => key(ch, 1, STATE[states[ch]] ?? IDLE))}
-        {key('⏎', 1.6, { background: 'var(--ink)', color: '#FFFDF9' }, 'Vahvista arvaus')}
+        {/* 3.3 on laskettu niin että rivin kirjainnäppäimet päätyvät
+            samaan leveyteen kuin ylempien rivien — muuten alarivi
+            rytmittyy eri tavalla. */}
+        {key('⏎', 3.3, { background: 'var(--ink)', color: '#FFFDF9' }, { text: 'Arvaa' })}
       </div>
     </div>
   )
