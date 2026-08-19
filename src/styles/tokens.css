@@ -1,0 +1,156 @@
+/* Design tokenit suoraan handoffin README:stä.
+   Älä keksi uusia arvoja — käytä näitä. */
+
+:root {
+  /* Brändi */
+  --brand:            #009A48;
+  --brand-dark:       #00753A;
+  --brand-deep:       #00532A;
+  --brand-bg:         #EAF6EC;
+  --brand-bg-2:       #E3F3E8;
+  --brand-on-light:   #4E7A5E;
+
+  /* Aksentit */
+  --accent:           #FF6B4A;
+  --yellow:           #FFC53D;
+  --yellow-bg:        #FFF3D4;
+  --yellow-text:      #8A6200;
+  --yellow-dark:      #7A5A00;
+  --red-bg:           #FFE7E0;
+  --red-bg-2:         #FFF0EB;
+  --red-text:         #8F3018;
+  --red-text-2:       #B23E23;
+
+  /* Muste ja teksti */
+  --ink:              #1E1B17;
+  --ink-2:            #2A2622;
+  --text:             #3A342D;
+  --text-2:           #6E665C;
+  --text-3:           #8C8378;
+  --text-4:           #9C948A;
+  --nav-inactive:     #C3B7A9;
+
+  /* Pinnat */
+  --white:            #FFFFFF;
+  --surface-warm:     #FCFAF6;
+  --sand-1:           #F9F6F0;
+  --sand-2:           #F4F0E7;
+  --sand-3:           #F1EEE8;
+  --page-bg:          #EDE9E1;
+
+  /* Reunat */
+  --border-card:      #F3EEE5;
+  --border-1:         #F1EAE0;
+  --border-2:         #E2DACD;
+  --border-3:         #EDE6DA;
+
+  /* Radiukset */
+  --r-card:           26px;
+  --r-card-sm:        20px;
+  --r-box:            16px;
+  --r-tile:           12px;
+  --r-pill:           999px;
+  --r-drawer:         30px;
+
+  /* Varjot */
+  --shadow-card:      0 1px 2px rgba(30,27,23,.03), 0 14px 30px -22px rgba(30,27,23,.3);
+  --shadow-drawer:    0 -12px 40px rgba(30,27,23,.22);
+  --shadow-brand:     0 8px 18px -6px rgba(0,154,72,.45);
+
+  /* Typografia */
+  --font-display:     'Baloo 2', system-ui, sans-serif;
+  --font-body:        'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:        'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Mitat */
+  --nav-height:       64px;
+  --content-pad:      16px;
+  --header-pad:       20px;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Sovelluksen runko: 390px suunnitteluleveys, keskitetty isommilla.
+   Kiinteä korkeus, jotta näkymä vierii kuoren sisällä eikä alanavigaatio
+   valu sisällön päälle matalilla ruuduilla. */
+.app-shell {
+  max-width: 430px;
+  margin: 0 auto;
+  height: 100%;
+  background: var(--surface-warm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.view-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+/* Sanuli täyttää korkeuden eikä vieri: lauta ylös, näppäimistö alas. */
+.view-fill {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 0 12px 10px;
+}
+
+/* Toast: 0.18 s sisään, 1.9 s näkyvissä (ajastin toast.jsx:ssä). */
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes sheetIn {
+  from { transform: translateY(14px); opacity: .6; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast, [role="dialog"] { animation: none !important; }
+}
+
+::placeholder { color: var(--text-4); opacity: 1; }
+
+button:disabled { cursor: default; }

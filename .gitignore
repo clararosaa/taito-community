@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.DS_Store
+
+# Claude Coden paikalliset asetukset
+.claude/settings.local.json
+
+# Sisäiset dokumentit ja skeema — eivät julkiseen repoon
+claude-code-briiffi.md
+design_handoff_workspace_hub/
+schema.sql
+schema-2.sql
