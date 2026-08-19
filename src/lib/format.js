@@ -67,3 +67,26 @@ export function readJSON(key) {
 export function writeJSON(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)) } catch { /* privaattitila */ }
 }
+
+const WEEKDAYS = ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la']
+
+/* Tapahtuman ajankohta: "ti 26.8. klo 17.00" */
+export function eventTime(iso) {
+  const d = new Date(iso)
+  return `${WEEKDAYS[d.getDay()]} ${d.getDate()}.${d.getMonth() + 1}. klo ${clockTime(iso)}`
+}
+
+/* Päiväpalkin lyhyt muoto: { day: '26', month: 'elo' } */
+const MONTHS = ['tammi', 'helmi', 'maalis', 'huhti', 'touko', 'kesä',
+                'heinä', 'elo', 'syys', 'loka', 'marras', 'joulu']
+
+export function dayBadge(iso) {
+  const d = new Date(iso)
+  return { day: String(d.getDate()), month: MONTHS[d.getMonth()] }
+}
+
+/* datetime-local -kentän arvo paikallisessa ajassa. */
+export function toLocalInput(date = new Date()) {
+  const p = n => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}T${p(date.getHours())}:${p(date.getMinutes())}`
+}

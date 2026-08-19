@@ -1,14 +1,18 @@
 import Home from './icons/Home'
 import Stadium from './icons/Stadium'
+import Event from './icons/Event'
 import Abc from './icons/Abc'
+import { FEED_ENABLED } from '../lib/features'
 
-/* Kolme kohtaa. Kamera-FAB ja viides kohta on suunniteltu lisättäväksi
-   myöhemmin: uusi rivi tähän riittää. */
+/* Syöte on piilotettu lipulla, ei poistettu — kohta palaa listaan
+   ensimmäiseksi kun FEED_ENABLED kääntyy trueksi. Kamera-FAB ja
+   viides kohta mahtuvat tähän edelleen. */
 const ITEMS = [
-  { id: 'feed',  label: 'Syöte',  Icon: Home },
-  { id: 'arena', label: 'Areena', Icon: Stadium },
-  { id: 'game',  label: 'Sanuli', Icon: Abc }
-]
+  { id: 'feed',   label: 'Syöte',      Icon: Home,    enabled: FEED_ENABLED },
+  { id: 'arena',  label: 'Areena',     Icon: Stadium, enabled: true },
+  { id: 'events', label: 'Tapahtumat', Icon: Event,   enabled: true },
+  { id: 'game',   label: 'Sanuli',     Icon: Abc,     enabled: true }
+].filter(item => item.enabled)
 
 export default function BottomNav({ view, onChange }) {
   return (
