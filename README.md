@@ -1,4 +1,4 @@
-# WorkSpace Hub
+# Taito Community
 
 Toimiston sisäinen yhteisösovellus asennettavana PWA:na.
 Vite + React + Supabase.

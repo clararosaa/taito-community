@@ -19,8 +19,8 @@ export default function Header({ title, name, onAvatar, right }) {
 export function Wordmark() {
   return (
     <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 25, letterSpacing: '-.01em' }}>
-      <span style={{ color: 'var(--ink)' }}>WorkSpace</span>
-      <span style={{ color: 'var(--brand)' }}> Hub</span>
+      <span style={{ color: 'var(--ink)' }}>Taito</span>
+      <span style={{ color: 'var(--brand)' }}> Community</span>
     </div>
   )
 }

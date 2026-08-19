@@ -12,8 +12,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icon-180.png'],
       manifest: {
-        name: 'WorkSpace Hub',
-        short_name: 'WorkSpace',
+        name: 'Taito Community',
+        // Kotinäytön ikonin alla näkyvä nimi — pidettävä lyhyenä.
+        short_name: 'Taito',
+        lang: 'fi',
         start_url: './',
         scope: './',
         display: 'standalone',

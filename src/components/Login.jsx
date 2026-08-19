@@ -65,8 +65,8 @@ export default function Login() {
   return (
     <div style={S.wrap}>
       <div style={S.logo}>
-        <span style={{ color: 'var(--ink)' }}>WorkSpace</span>
-        <span style={{ color: 'var(--brand)' }}> Hub</span>
+        <span style={{ color: 'var(--ink)' }}>Taito</span>
+        <span style={{ color: 'var(--brand)' }}> Community</span>
       </div>
 
       {step === 'email' ? (
