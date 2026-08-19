@@ -125,6 +125,21 @@ h1, h2, h3 {
   padding-bottom: 16px;
 }
 
+/* Sanulin lauta skaalautuu näytön leveyden mukaan. aspect-ratio pitää
+   laatat neliöinä, ja kirjaimen koko seuraa laudan leveyttä. */
+.sanuli-board {
+  aspect-ratio: 272 / 327;
+}
+
+.sanuli-tile {
+  font-size: 26px;
+}
+
+@supports (font-size: 1cqi) {
+  .sanuli-board { container-type: inline-size; }
+  .sanuli-tile  { font-size: clamp(20px, 9cqi, 34px); }
+}
+
 /* Sanuli täyttää korkeuden eikä vieri: lauta ylös, näppäimistö alas. */
 .view-fill {
   flex: 1;

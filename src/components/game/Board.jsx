@@ -10,7 +10,7 @@ const TYPING = { background: 'var(--white)', color: 'var(--ink)', borderColor: '
 
 export default function Board({ guesses, current, rows = 6, cols = 5 }) {
   return (
-    <div style={S.board}>
+    <div className="sanuli-board" style={S.board}>
       {Array.from({ length: rows }, (_, r) => {
         const guess = guesses[r]
         const active = !guess && r === guesses.length
@@ -19,7 +19,7 @@ export default function Board({ guesses, current, rows = 6, cols = 5 }) {
             {Array.from({ length: cols }, (_, c) => {
               const ch = guess ? guess.word[c] : active ? (current[c] ?? '') : ''
               const style = guess ? TILE[guess.marks[c]] ?? EMPTY : ch ? TYPING : EMPTY
-              return <div key={c} style={{ ...S.tile, ...style }}>{ch}</div>
+              return <div key={c} className="sanuli-tile" style={{ ...S.tile, ...style }}>{ch}</div>
             })}
           </div>
         )
@@ -29,17 +29,18 @@ export default function Board({ guesses, current, rows = 6, cols = 5 }) {
 }
 
 const S = {
-  /* Suunniteltu korkeus on 322px, mutta lauta joustaa alaspäin matalilla
-     ruuduilla. Muuten näppäimistön alarivi jää alanavigaation alle. */
+  /* Lauta ottaa käytettävissä olevan leveyden; korkeus tulee
+     aspect-ratiosta (.sanuli-board). Matalilla ruuduilla se joustaa
+     alaspäin, ettei näppäimistön alarivi jää alanavigaation alle. */
   board: {
     display: 'grid', gridTemplateRows: 'repeat(6, minmax(0, 1fr))', gap: 7,
-    width: '100%', maxWidth: 272, maxHeight: 322, minHeight: 0,
-    flex: '0 1 322px', marginTop: 2
+    width: '100%', minHeight: 0,
+    flex: '0 1 auto', marginTop: 2
   },
   row: { display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 7, minHeight: 0 },
   tile: {
     borderRadius: 'var(--r-tile)', display: 'flex', alignItems: 'center',
-    justifyContent: 'center', fontWeight: 800, fontSize: 23, letterSpacing: '.01em',
+    justifyContent: 'center', fontWeight: 800, letterSpacing: '.01em',
     borderWidth: 2, borderStyle: 'solid', minHeight: 0, overflow: 'hidden'
   }
 }
