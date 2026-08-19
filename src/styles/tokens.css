@@ -148,7 +148,9 @@ h1, h2, h3 {
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 0 12px 10px;
+  /* Sama sivupaddingi kuin ylätunnisteella, jotta laudan reunat ovat
+     linjassa otsikon ja avatarin kanssa. */
+  padding: 0 var(--header-pad) 10px;
 }
 
 /* Toast: 0.18 s sisään, 1.9 s näkyvissä (ajastin toast.jsx:ssä). */
