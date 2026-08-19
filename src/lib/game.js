@@ -1,18 +1,26 @@
 import { supabase } from './supabase'
 import { readJSON, writeJSON } from './format'
 
-/* Palvelin päättää päivän sanan `current_date`-arvolla, joka on
-   Supabasessa UTC. Käytetään samaa päivää myös localStorage-avaimessa,
-   jottei lauta nollaudu eri hetkellä kuin sana vaihtuu. */
+/* Pelipäivä on Suomen kalenteripäivä — sama arvo kuin kannan
+   game_day() (`(now() at time zone 'Europe/Helsinki')::date`).
+   Samaa päivää käytetään localStorage-avaimessa, game_results-rivissä
+   ja tulostaulun haussa, joten kaikki vaihtuvat yhtä aikaa.
+
+   HUOM: vaatii schema-3-sanuli.sql:n ajetuksi. Ilman sitä kanta on
+   yhä UTC:ssä ja klo 0–3 välillä selain ja palvelin olisivat eri
+   päivässä. */
+const GAME_TZ = 'Europe/Helsinki'
+
 export function playDate(d = new Date()) {
-  return d.toISOString().slice(0, 10)
+  const p = new Intl.DateTimeFormat('en-CA', {
+    timeZone: GAME_TZ, year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(d).reduce((o, x) => ((o[x.type] = x.value), o), {})
+  return `${p.year}-${p.month}-${p.day}`
 }
 
-/* Mihin kellonaikaan sana vaihtuu käyttäjän omassa ajassa. */
+/* Sana vaihtuu Suomen keskiyöllä. */
 export function wordChangesAt() {
-  const now = new Date()
-  const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1))
-  return `${next.getHours()}.${String(next.getMinutes()).padStart(2, '0')}`
+  return '0.00'
 }
 
 const storeKey = () => `ws.sanuli.${playDate()}`
