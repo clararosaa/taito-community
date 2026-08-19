@@ -1,24 +1,30 @@
+import Home from './icons/Home'
+import Stadium from './icons/Stadium'
+import Abc from './icons/Abc'
+
+/* Kolme kohtaa. Kamera-FAB ja viides kohta on suunniteltu lisättäväksi
+   myöhemmin: uusi rivi tähän riittää. */
 const ITEMS = [
-  { id: 'feed',  label: 'Syöte',  icon: '🏠' },
-  { id: 'arena', label: 'Areena', icon: '🎯' },
-  { id: 'game',  label: 'Sanuli', icon: '🔤' }
+  { id: 'feed',  label: 'Syöte',  Icon: Home },
+  { id: 'arena', label: 'Areena', Icon: Stadium },
+  { id: 'game',  label: 'Sanuli', Icon: Abc }
 ]
 
 export default function BottomNav({ view, onChange }) {
   return (
     <nav style={S.nav}>
-      {ITEMS.map(it => {
-        const active = view === it.id
+      {ITEMS.map(({ id, label, Icon }) => {
+        const active = view === id
         return (
           <button
-            key={it.id}
-            onClick={() => onChange(it.id)}
+            key={id}
+            onClick={() => onChange(id)}
+            aria-current={active ? 'page' : undefined}
+            // Ikoni perii tämän värin currentColorina.
             style={{ ...S.item, color: active ? 'var(--accent)' : 'var(--nav-inactive)' }}
           >
-            <span style={{ fontSize: 20, filter: active ? 'none' : 'grayscale(1) opacity(.6)' }}>
-              {it.icon}
-            </span>
-            <span style={{ ...S.label, fontWeight: active ? 700 : 600 }}>{it.label}</span>
+            <Icon size={24} />
+            <span style={{ ...S.label, fontWeight: active ? 700 : 600 }}>{label}</span>
           </button>
         )
       })}
