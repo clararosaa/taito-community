@@ -21,9 +21,28 @@ Supabasen arvot: dashboard → Project Settings → API.
 Dev-palvelin ajaa `base`-asetuksen takia osoitteessa
 http://localhost:5173/taito-community/
 
-**Lisää se osoite Supabaseen:** Authentication → URL Configuration →
-Redirect URLs → `http://localhost:5173/**`. Muuten magic link ei
-ohjaa takaisin kehityksessä.
+## Kirjautuminen
+
+Sähköposti + 6-numeroinen koodi, ei magic linkkiä: iOS:n
+kotinäyttösovelluksella on Safarista erillinen tallennustila, joten
+selaimessa avattu linkki ei kirjaisi sovellusta sisään.
+
+**Vaatii Supabasen sähköpostipohjan muokkauksen:** Authentication →
+Emails → Magic Link -pohjan pitää sisältää `{{ .Token }}`. Oletuspohja
+lähettää pelkän `{{ .ConfirmationURL }}`-linkin, jolloin koodia ei tule
+viestiin lainkaan eikä kirjautuminen onnistu. Esimerkki:
+
+```html
+<h2>Kirjautumiskoodisi</h2>
+<p>{{ .Token }}</p>
+<p>Koodi vanhenee tunnissa.</p>
+```
+
+Koodin voimassaoloajan voi lyhentää: Authentication → Providers →
+Email → Email OTP Expiration. Uuden koodin voi pyytää 60 sekunnin
+välein; sovellus näyttää laskurin.
+
+Redirect URL -asetuksia ei tarvita, koska mitään linkkiä ei avata.
 
 ## Julkaisu
 
@@ -37,8 +56,7 @@ Vaatii kertaluontoisen asetuksen GitHubissa:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions**
-3. **Supabase → Authentication → URL Configuration → Redirect URLs**
-   → `https://clararosaa.github.io/taito-community/**`
+3. Supabasen sähköpostipohjaan `{{ .Token }}` — katso *Kirjautuminen*
 
 Arvot paistetaan bundleen käännösaikana, joten secretin muuttuessa
 pitää ajaa uusi deploy.
