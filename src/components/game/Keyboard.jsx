@@ -45,9 +45,9 @@ export default function Keyboard({ guesses, disabled, onKey }) {
         </div>
       ))}
       <div style={S.row}>
-        {key('⏎', 1.6, { background: 'var(--ink)', color: '#FFFDF9' }, 'Vahvista arvaus')}
-        {ROWS[2].split('').map(ch => key(ch, 1, STATE[states[ch]] ?? IDLE))}
         {key('⌫', 1.6, { background: '#DDD5C8', color: 'var(--text)' }, 'Poista kirjain')}
+        {ROWS[2].split('').map(ch => key(ch, 1, STATE[states[ch]] ?? IDLE))}
+        {key('⏎', 1.6, { background: 'var(--ink)', color: '#FFFDF9' }, 'Vahvista arvaus')}
       </div>
     </div>
   )
